@@ -1,0 +1,469 @@
+==> my-gnome-shellscript.sh <==
+gsettings set org.gnome.shell.extensions.dash-to-dock hot-keys false
+
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1          "['<Super>1']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2          "['<Super>2']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3          "['<Super>3']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4          "['<Super>4']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-5          "['<Super>5']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-6          "['<Super>6']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-7          "['<Super>7']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-8          "['<Super>8']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-9          "['<Super>9']"
+# gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-last       "['<Super><Control>last']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left       "['<Super><Control>left']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right      "['<Super><Control>right']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-up         "['<Super><Control>up']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-down       "['<Super><Control>down']"
+
+
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left "['<Super><Alt>Left']"
+
+
+# ?gsettings set org.gnome.desktop.wm.keybindings last?
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left  "['<Super><Alt>left']"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-right "['<Super><Alt>right']"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-up    "['<Super><Alt>up']"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-down  "['<Super><Alt>down']"
+
+
+
+
+# -----------------
+# ✅ Option 2 — Use “Custom Hot Corners Extended” or “Custom Shortcuts” + a script
+# 
+# You can bind a key to a script that forces GNOME to create a workspace.
+# 
+# Example script to create a workspace:
+# Code
+# 
+# #!/bin/bash
+# gdbus call --session \
+#   --dest org.gnome.Shell \
+#   --object-path /org/gnome/Shell \
+#   --method org.gnome.Shell.Eval \
+#   "global.workspace_manager.append_new_workspace();"
+# 
+# Bind it to Super+Ctrl+D.
+# 
+# To close the current workspace:
+# Code
+# 
+# #!/bin/bash
+# gdbus call --session \
+#   --dest org.gnome.Shell \
+#   --object-path /org/gnome/Shell \
+#   --method org.gnome.Shell.Eval \
+#   "global.workspace_manager.remove_workspace(global.workspace_manager.get_active_workspace());"
+# 
+# Bind it to Super+Ctrl+F4.
+# 
+# This works but requires scripting.
+
+
+
+
+
+
+
+
+
+# ------------------------
+
+
+
+# no: coz this is full screen screenshot. # gsettings set org.gnome.shell.keybindings screenshot "['<Super><Shift>S']"
+gsettings gsettings set org.gnome.shell.keybindings show-screenshot-ui "['<Super><Shift>S']"
+
+
+
+{ # Win+e = explorer
+
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings \
+"['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/win-e/']"
+
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/win-e/ name 'Open File Manager'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/win-e/ command 'nautilus'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/win-e/ binding '<Super>e'
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###############################################################################################
+
+
+#########  I HAVE NOT CHECKED IF I NEED TO KEEP THOS ONES:
+#########   71  gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
+#########  112  gsettings set org.gnome.desktop.interface gtk-enable-primary-paste false
+#########  192  for i in `seq 10`; do gsettings set org.gnome.shell.keybindings switch-to-application-${i}; done
+#########  194  for i in `seq 10`; do gsettings set org.gnome.shell.keybindings switch-to-application-${i} '[]'; done
+#########  195  for i in `seq 0 9`; do gsettings set org.gnome.shell.keybindings switch-to-application-${i} '[]'; done
+#########  196  for i in `seq 0 9`; do gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-${i} "['<Super>${i}']"; ; done
+#########  197  for i in `seq 0 9`; do gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-${i} "['<Super>${i}']";  done
+#########  198  for i in `seq 1 9`; do gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-${i} "['<Super>${i}']";  done
+#########  200  for i in `seq 1 9`; do gsettings get gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-${i} ;  done
+203  for i in `seq 1 9`; do gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-${i} "['<Super><Shift>${i}']";  done
+#########  206  gsettings set org.gnome.shell.keybindings toggle-overview "['<Super>Tab']"
+#########  220  gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us+carpalx')]"
+#########  222  gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us+carpalx')]"
+#########  232  gsettings set org.gnome.desktop.input-sources show-all-sources true
+#########  233  gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us+carpalx')]"
+#########  258  gsettings set org.gnome.desktop.peripherals.keyboard delay 200
+#########  260  gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 16
+#########  261  gsettings set org.gnome.desktop.peripherals.keyboard delay 2000
+#########  262  gsettings set org.gnome.desktop.peripherals.keyboard delay 200
+#########  268  gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 17
+#########  309  gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-down       "['<Super><Control>down']"
+#########  310  gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-last       "['<Super><Control>last']"
+#########  311  gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left       "['<Super><Control>left']"
+#########  312  gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right      "['<Super><Control>right']"
+#########  313  gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-up         "['<Super><Control>up']"
+#########  314  gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left  "['<Super><Alt>left']"
+#########  315  gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-right "['<Super><Alt>rightt']"
+#########  316  gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-up    "['<Super><Alt>up']"
+#########  317  gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-down  "['<Super><Alt>down']"
+#########  318  gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-right "['<Super><Alt>right']"
+#########  319  gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2          "['<Super>2']"
+#########  320  gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2          "['<Super>@']"
+#########  328  for i in `seq 1 9`; do gsettings set org.gnome.shell.keybindings open-new-window-application-${i} "[]";  done
+#########  330  gsettings set org.gnome.shell.keybindings screenshot '<Super><Shift>S'
+#########  331  gsettings set org.gnome.shell.keybindings screenshot "['<Super><Shift>S']"
+#########  333  gsettings set org.gnome.shell.extensions.dash-to-dock hot-keys false
+#########  351  gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>2']"
+#########  352  gsettings set org.gnome.shell.keybindings workspace-new "['<Super><Control>D']"
+#########  353  gsettings set org.gnome.shell.keybindings workspace-close "['<Super><Control>F4']"
+#########  356  echo gsettings set org.gnome.shell.keybindings screenshot "['<Super><Shift>S']"
+#########  357  gsettings set org.gnome.settings-daemon.plugins.media-keys area-screenshot "['<Super><Shift>S']"
+#########  363  gsettings set org.gnome.shell.keybindings screenshot "[]"
+#########  364  gsettings set org.gnome.settings-daemon.plugins.media-keys screenshot "['<Super><Shift>S']"
+#########  366  gsettings set org.gnome.shell.keybindings show-screenshot-ui "['<Super><Shift>S']"
+#########  367  : gsettings set org.gnome.shell.keybindings screenshot-area "['<Super><Shift>S']"
+
+  370  gsettings set org.gnome.shell.keybindings show-screenshot-ui "['<Super><Shift>S']"
+#  530  gsettings set org.gnome.mutter overlay-key '' # disable Super_L
+#  533  gsettings set org.gnome.desktop.wm.keybindings show-desktop '[]'
+#  534  gsettings set org.gnome.desktop.wm.keybindings panel-main-menu "['<Super>d']" 
+#  538  gsettings set org.gnome.desktop.wm.keybindings panel-main-menu  '[]'
+#  536  gsettings set org.gnome.shell.keybindings toggle-application-view "['<Super>d']"
+
+  543  gsettings set org.gnome.desktop.wm.keybindings close "['<Super>w','<Alt>F4']"
+  545  gsettings set org.gnome.desktop.wm.keybindings begin-resize "['<Super>r']"
+
+  547  gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'interactive'
+  548  gsettings set org.gnome.settings-daemon.plugins.media-keys power "['<Super>o']"
+  550  gsettings set org.gnome.desktop.wm.keybindings minimize "['<Super>n']"
+  552  gsettings set org.gnome.desktop.wm.keybindings begin-move "['<Super>m']"
+
+  566  gsettings set org.gnome.desktop.wm.keybindings always-on-top "['<Super><Shift>minus']"
+
+  568  gsettings set org.gnome.settings-daemon.plugins.media-keys help '[""]' # stop default Win+F1
+  556  (
+  set -eux ;
+gsettings set org.gnome.settings-daemon.plugins.media-keys pause "['<Super>F1']";
+gsettings set org.gnome.settings-daemon.plugins.media-keys volume-down "['<Super>F2']";
+gsettings set org.gnome.settings-daemon.plugins.media-keys volume-up "['<Super>F3']";
+gsettings set org.gnome.settings-daemon.plugins.media-keys volume-mute "['<Super><Alt>F1']";
+gsettings set org.gnome.settings-daemon.plugins.media-keys previous "['<Super><Alt>F2']";
+gsettings set org.gnome.settings-daemon.plugins.media-keys next "['<Super><Alt>F3']";
+)
+
+  571  gsettings set org.gnome.desktop.wm.keybindings toggle-on-all-workspaces "['<Super><Shift>0']"
+  575  gsettings set org.gnome.settings-daemon.plugins.media-keys terminal "['<Primary><Alt>t','<Super>Return']"
+
+
+
+
+
+
+
+  622  gsettings get org.gnome.desktop.wm.keybindings move-to-workspace-right "['<Super><Alt>left','<Super><Shift>D']"
+  623  gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-right "['<Super><Alt>left','<Super><Shift>D']"
+  624  gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-right "['<Super><Alt>left','<Super><Shift>T']"
+  625  gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left "['<Super><Alt>left','<Super><Shift>D']"
+  631  gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left "['<Super><Control>left','<Super>D']"
+  634  gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right "['<Super><Control>right','<Super>T']"
+
+
+
+
+
+
+
+
+
+#----------------------
+
+
+gsettings set org.gnome.shell.keybindings show-screenshot-ui "['<Super><Shift>S','<Super>J']"
+
+
+
+#
+
+# TODO: add script for this
+( set -eux
+	custom_path="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
+	custom_binding="org.gnome.settings-daemon.plugins.media-keys.custom-keybinding"
+	settings_schema="org.gnome.settings-daemon.plugins.media-keys"
+
+	for index in {0..8}; do
+		workspace=$((index + 1))
+		binding_path="$custom_path/custom${index}/" #TODO REMOVE me from settings
+		##binding_path="$custom_path/gnome-move-window-to-workspace-${index}/"
+		##gsettings set $custom_binding:"$binding_path" name "Move to workspace $workspace"
+		gsettings set $custom_binding:"$binding_path" command "$HOME/.local/bin/gnome-move-window-to-workspace $index"
+		##gsettings set $custom_binding:"$binding_path" binding "<Super><Shift>$workspace"
+	done
+
+	# Get existing keybindings
+	existing_keybindings=$(gsettings get $settings_schema custom-keybindings)
+	
+	# Build new keybindings array
+	keybindings_list=""
+	for index in {0..8}; do
+		keybindings_list="${keybindings_list}'$custom_path/custom${index}/',"
+	done
+	keybindings_list="${keybindings_list%,}"
+
+	# Merge existing with new
+	if [ "$existing_keybindings" != "@as []" ]; then
+		existing_keybindings=${existing_keybindings#'['}
+		existing_keybindings=${existing_keybindings%']'}
+		existing_keybindings=${existing_keybindings%["$IFS" 	]}
+		existing_keybindings=${existing_keybindings%["$IFS" 	]}
+		existing_keybindings=${existing_keybindings%["$IFS"]} # IDK, just in case
+		existing_keybindings=${existing_keybindings%','}
+		keybindings_list="$existing_keybindings${existing_keybindings+,} $keybindings_list"
+	fi
+
+	gsettings set $settings_schema custom-keybindings "[$keybindings_list]"
+)
+
+
+
+
+
+
+gsettings-get-set org.gnome.desktop.wm.preferences workspace-names '[]'
+# I couldnt remove "Workspace 1" to be default "1"
+
+==> my-snapper-desnapped.md <==
+from file: /etc/apparmor.d/local/usr.lib.snapd.snapd
+remove:
+deny /usr/lib/snapd/snapd install,
+deny /usr/lib/snapd/snapd download,
+deny /usr/lib/snapd/snapd fetch,
+deny /usr/lib/snapd/snapd remove,
+
+
+
+sudo chattr +i /usr/bin/snap
+
+==> performant-elementReady.js <==
+
+// example cb:
+function checkMatchFast(el, { selector, tagName, className, id }) {
+	if (id != null && el.id === id) return true; // note: no .toLowerCase to improve performance
+	if (tagName != null && el.tagName === tagName) return true;
+	if (className != null && el.classList.contains(className)) return true;
+	if (selector != null && el.matches(selector)) return true;
+
+	return false;
+}
+
+function* walkElements(root) {
+	const walker = document.createTreeWalker(
+		root,
+		NodeFilter.SHOW_ELEMENT,
+		null
+	);
+
+	// Start at the root itself
+	let node = walker.currentNode;
+	yield node;
+
+	// Walk the subtree
+	while (node = walker.nextNode()) {
+		yield node;
+	}
+}
+
+
+
+const fromSelectSptionsToNestedFind = {
+	id: function(id) { walkElements(this).find(el => el.id === id) },
+	className: function(className) {}
+};
+
+export function elementReady(arg1, context = document.body, checkFirst = true) {
+	let resolve,reject;
+	var p = Promise((O,X)=>(resolve=O,reject=X));
+	p.resolve=resolve;
+	p.reject=reject;
+
+
+	// Normalize arguments
+	let checkMatch;
+	let checkOptions;
+	let selector;
+
+	if (typeof arg1 === "string") {
+		selector = arg1;
+		checkMatch = el => el.querySelector(selector);
+	} else if (typeof arg1 === 'function') {
+		checkMatch = arg1;
+	} else if (typeof arg1 === 'oject') {
+		checkOptions = arg1
+		selector = checkOptions.selector || (
+			checkOptions.className
+		);
+		checkMatch = el => checkMatchFast(el, checkOptions);
+	} else throw new Error(2);
+
+	// 1. Check immediately
+	if (checkFirst) {
+		if (matchArgs.selector) {
+			const initial = context.querySelector(matchArgs.selector);
+			if (initial) {
+				return resolve(initial);
+			}
+		} else {
+			 for (let el of context.all) {
+				if (checkMatch(el, matchArgs))
+			 }
+		}
+	}
+
+	// 2. Observe DOM mutations
+	const observer = new MutationObserver((mutationRecords) => {
+		for (const record of mutationRecords) {
+			for (const node of record.addedNodes) {
+				if (!(node instanceof Element)) continue;
+
+				// Direct match
+				if (checkMatch(node, matchArgs)) {
+					observer.disconnect();
+					return resolve(node);
+				}
+
+				// Match inside subtree
+				const found = node.querySelector(matchArgs.selector || "*");
+				if (found && checkMatch(found, matchArgs)) {
+					observer.disconnect();
+					return resolve(found);
+				}
+			}
+		}
+	});
+
+	observer.observe(document.documentElement, {
+		childList: true,
+		subtree: true
+	});
+
+	p.then(() => observer.disconnect());
+
+	return p;
+}
+
+==> test <==
+
+==> test-fps.html <==
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Timing Test</title>
+<style>
+  body { font-family: sans-serif; font-size: 20px; padding: 20px; }
+  #fps { font-weight: bold; }
+</style>
+<script>
+// Change this to 'setTimeout' or 'requestAnimationFrame'
+
+//const TESTINGTYPE = 'setTimeout'; // or 'requestAnimationFrame'
+const TESTINGTYPE = 'requestAnimationFrame'
+//const TESTINGTYPE = 'async microtask'
+
+
+
+console.log(1);
+debugger;
+
+let counter = 0;
+let lastTime = performance.now();
+
+function updateFPS() {
+  const now = performance.now();
+  const delta = now - lastTime;
+
+  if (1000 <= delta) {
+    document.getElementById("fps").textContent = counter;
+    counter = 0;
+    lastTime = now;
+
+    return true;
+  }
+}
+
+function loop() {
+  counter++;
+  if (updateFPS() && TESTINGTYPE === 'async microtask') {
+  	setTimeout(loop, 0);
+  	return;
+  }
+
+  if (TESTINGTYPE === 'requestAnimationFrame') {
+    requestAnimationFrame(loop);
+  } else if (TESTINGTYPE === 'setTimeout') {
+    setTimeout(loop, 0);
+  } else if (TESTINGTYPE === 'async microtask') {
+  	Promise.resolve().then(loop);
+  }
+}
+
+window.onload = () => {
+  loop();
+};
+</script>
+</head>
+<body>
+
+Running: <strong><script>document.write(TESTINGTYPE);</script></strong><br><br>
+
+FPS: <span id="fps">0</span> ps <span title="per second">(per second)</span>
+
+</body>
+</html>
