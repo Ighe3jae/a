@@ -1,0 +1,66 @@
+==> a.md <==
+
+nix --extra-experimental-features 'nix-command flakes' profile add github:k3tzchen/nichts
+# from:
+https://duckduckgo.com/?t=ffab&q=nix+package+pacapt&ia=web
+https://github.com/search?utf8=%E2%9C%93&q=pacman%20wrapper%20nix
+https://github.com/k3tzchen/nichts?tab=readme-ov-file#installation
+
+
+
+nix --extra-experimental-features 'nix-command flakes' profile add github:k3tzchen/nichts
+command done
+
+
+==> 222/a.json <==
+{
+		"key": "escape",
+		"command": "workbench.action.closePanel",
+		"when": "panelFocus"
+	},
+
+
+
+	// If panel is visible, just close it (keeps focus in editor)
+	{
+		"key": "escape",
+		"command": "workbench.action.closePanel",
+		"when": "editorTextFocus && panelVisible && !editorHasSelection && !editorHasMultipleSelections && !suggestWidgetVisible && !findWidgetVisible"
+	},
+	// If panel is hidden, toggle it and immediately focus back to editor
+	{
+		"key": "escape",
+		"command": "runCommands",
+		"args": {
+			"commands": [
+				"workbench.action.togglePanel",
+				"workbench.action.focusActiveEditorGroup"
+			]
+		},
+		"when": "editorTextFocus && !panelVisible && !editorHasSelection && !editorHasMultipleSelections && !suggestWidgetVisible && !findWidgetVisible"
+	},
+
+==> 222/b.json <==
+{
+		"key": "escape",
+		"command": "workbench.action.closePanel",
+		"when": "panelFocus"
+		//"when": "panelFocus && !terminalFocus"
+		// didnt work: "when": "panelFocus && !terminalFocus || terminalTabsFocus || terminalTabsListFocus"
+		// still cant hide terminal when outside terminal but still in panelFocus
+	},
+
+
+
+	{
+		"key": "escape",
+		"command": "workbench.action.togglePanel",
+		"when": "editorTextFocus",
+		"when": "editorTextFocus && !editorHasSelection && !editorHasMultipleSelections && !suggestWidgetVisible && !findWidgetVisible"
+	},
+
+==> 222/readme.json <==
+/home/pytek/.config/Antigravity/User/keybindings.json
+
+lines:
+105 121
