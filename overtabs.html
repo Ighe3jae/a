@@ -1,0 +1,1039 @@
+<x-tabs class="rankings" aria-label="Rankings">
+
+	<div class="rankings__tablist d-flex" role="tablist" aria-orientation="horizontal" data-js-required="true" aria-label="Rankings period">
+		<!--
+			tabs docs:
+			https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-controls
+			https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/tab_role
+			https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/tablist_role
+			https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
+			https://github.com/w3c/html/issues/1704
+			https://github.com/whatwg/html/issues/1809
+
+
+			has working codepan/js that could use:
+			https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-manual/
+			https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-automatic/
+			https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/tab_role -- https://github.com/mdn/content/blob/a886ef3867e01df856ed9b49b3b6856232cc8c75/files/en-us/web/accessibility/aria/reference/roles/tab_role/index.md?plain=1#L193
+			https://github.com/jobrunr/website/blob/e24e7f2d48879d29b859681938aba813545cf2fd/themes/fortify-hugo/assets/js/codetabs.js#L143
+
+			dead link (idk): https://simplyaccessible.com/article/danger-aria-tabs/#acc-heading-2
+
+			extra:
+			native tabs proposal:
+			(duplicate) https://github.com/whatwg/html/issues/11604
+			https://github.com/whatwg/html/issues/11604
+			wrap: `[focusgroup="wrap"]` https://open-ui.org/components/focusgroup.explainer/
+		-->
+
+		<x-tab
+			class="rankings__tab{{#if tabfocused_today}} rankings__tab--active{{/if}}"
+			role="tab"
+			id="rankings-tab-today"
+			aria-controls="rankings-panel-today"
+			aria-selected="{{#if tabfocused_today}}true{{else}}false{{/if}}"
+			tabindex="{{#if tabfocused_today}}0{{else}}-1{{/if}}"
+		><span data-tabs-jump-key>T</span>o<span data-tabs-jump-key>d</span>ay</x-tab>
+
+		<x-tab
+			class="rankings__tab{{#if tabfocused_week}} rankings__tab--active{{/if}}"
+			role="tab"
+			id="rankings-tab-week"
+			aria-controls="rankings-panel-week"
+			aria-selected="{{#if tabfocused_week}}true{{else}}false{{/if}}"
+			tabindex="{{#if tabfocused_week}}0{{else}}-1{{/if}}"
+		>This <span data-tabs-jump-key>W</span>eek</x-tab>
+
+		<x-tab
+			class="rankings__tab{{#if tabfocused_month}} rankings__tab--active{{/if}}"
+			role="tab"
+			id="rankings-tab-month"
+			aria-controls="rankings-panel-month"
+			aria-selected="{{#if tabfocused_month}}true{{else}}false{{/if}}"
+			tabindex="{{#if tabfocused_month}}0{{else}}-1{{/if}}"
+		>This <span data-tabs-jump-key>M</span>onth</x-tab>
+
+		<x-tab
+			class="rankings__tab{{#if tabfocused_alltime}} rankings__tab--active{{/if}}"
+			role="tab"
+			id="rankings-tab-alltime"
+			aria-controls="rankings-panel-alltime"
+			aria-selected="{{#if tabfocused_alltime}}true{{else}}false{{/if}}"
+			tabindex="{{#if tabfocused_alltime}}0{{else}}-1{{/if}}"
+		><span data-tabs-jump-key>A</span>ll Time</x-tab>
+
+	</div>
+
+	<x-panel
+		class="rankings__panel"
+		role="tabpanel"
+		id="rankings-panel-today"
+		aria-labelledby="rankings-tab-today"
+		{{#unless tabfocused_today}}hidden{{/unless}}
+	>
+		today:
+		<ul class="rankings__list">
+			<li class="rankings__item"><span class="rankings__author">Author Name</span></li>
+			<li class="rankings__item"><span class="rankings__author">Author Name</span></li>
+			<li class="rankings__item"><span class="rankings__author">Author Name</span></li>
+		</ul>
+	</x-panel>
+
+	<x-panel
+		class="rankings__panel"
+		role="tabpanel"
+		id="rankings-panel-week"
+		aria-labelledby="rankings-tab-week"
+		{{#unless tabfocused_week}}hidden{{/unless}}
+	>
+		week:
+		<ul class="rankings__list">
+			<li class="rankings__item"><span class="rankings__author">Author Name</span></li>
+			<li class="rankings__item"><span class="rankings__author">Author Name</span></li>
+			<li class="rankings__item"><span class="rankings__author">Author Name</span></li>
+		</ul>
+	</x-panel>
+
+	<x-panel
+		class="rankings__panel"
+		role="tabpanel"
+		id="rankings-panel-month"
+		aria-labelledby="rankings-tab-month"
+		{{#unless tabfocused_month}}hidden{{/unless}}
+	>
+		month:
+		<ul class="rankings__list">
+			<li class="rankings__item"><span class="rankings__author">Author Name</span></li>
+			<li class="rankings__item"><span class="rankings__author">Author Name</span></li>
+			<li class="rankings__item"><span class="rankings__author">Author Name</span></li>
+		</ul>
+	</x-panel>
+
+	<x-panel
+		class="rankings__panel"
+		role="tabpanel"
+		id="rankings-panel-alltime"
+		aria-labelledby="rankings-tab-alltime"
+		{{#unless tabfocused_alltime}}hidden{{/unless}}
+	>
+		alltime:
+		<ul class="rankings__list">
+			<li class="rankings__item"><span class="rankings__author">Author Name</span></li>
+			<li class="rankings__item"><span class="rankings__author">Author Name</span></li>
+			<li class="rankings__item"><span class="rankings__author">Author Name</span></li>
+		</ul>
+	</x-panel>
+
+</x-tabs>
+
+<style>
+/* active tab to be in accent color */
+.rankings__tab--active {
+	color: var(--accent-color);
+}
+
+:where(x-tabs, x-tab, x-panel:not([hidden])) { display: block; }
+
+[role="tablist"] {
+	&[aria-orientation="vertical"] {
+		flex-direction: column;
+		grid-auto-flow: column;
+	}
+	&[aria-orientation="horizontal"] {
+		flex-direction: row;
+		grid-auto-flow: row;
+	}
+}
+
+
+
+[data-tabs-jump-key] {
+	text-decoration: underline;
+	text-decoration-color: transparent;
+	transition: text-decoration-color 0s;
+}
+
+x-tabs[data-css-show-jump-key] x-tab:hover [data-tabs-jump-key] {
+	text-decoration-color: currentColor;
+	transition-delay: 5s;
+}
+
+x-tabs[data-css-show-jump-key] x-tab:focus-visible [data-tabs-jump-key] {
+	text-decoration-color: currentColor;
+	transition-delay: 10s;
+}
+</style>
+
+
+<script>
+class ErrorExtended extends Error {
+	constructor(message, context) {
+		super(message);
+		this.context = context;
+	}
+}
+
+
+/**
+* @typedef {Object} TabSwitchOptions
+* @property {boolean} [focusTab=false] - Whether to focus the tab.
+* @property {boolean} [focusPanel=false] - Whether to focus the panel.
+*/
+
+
+class TabbedComponent {
+	/**
+	* @param {HTMLElement} element - entire element containing all elements
+	* @param {string} tablistSelector - selector for element with role="tablist"
+	* @param {string} tabSelector - selector for tabs role="tab"
+	* @param {string} panelSelector - selector for panels role="tabpanel"
+	* @param {Object} [options] - Options for the tabbed component
+	* @param {boolean} [options.vimMotionEnabled=false] - Enable VIM-like navigation
+	*/
+	constructor(element, tablistSelector, tabSelector, panelSelector, options = {}) {
+		if (options.keys.vimMotionEnabled && options.keys.singleLetterJump) {
+			throw new ErrorExtended('TabbedComponent: options.keys.vimMotionEnabled and options.keys.singleLetterJump cannot be true at the same time', {options});
+		}
+
+		this.element = element;
+		this.tablistSelector = tablistSelector;
+
+		this.tabSelector = tabSelector;
+		this.panelSelector = panelSelector;
+		this.options = options;
+
+		this.init();
+
+
+		if (options.keys.singleLetterJump) {
+			this.tablist.setAttribute('data-css-show-jump-key', '');
+		}
+	}
+
+	init() {
+		this.reindex();
+		this.tabs.forEach(tab => this.addTabListeners(tab));
+		const that = this;
+
+		this.observer = new MutationObserver(function(mutations) {
+			let shouldReindex = false;
+
+			let careAboutRemovals = Math.max(that.tabs.length, that.panels.length) !== 0;
+			let careAboutRemovalsNext = careAboutRemovals;
+
+			for (const mutation of mutations) {
+				careAboutRemovals = careAboutRemovalsNext;
+
+				// Handle added [role=tab]
+				for (const node of mutation.addedNodes) {
+					if (node.nodeType !== 1) continue;
+
+					if (node.matches(that.tabSelector)) node.addTabListeners(node);
+					node.querySelectorAll(that.tabSelector).forEach(tab => that.addTabListeners(tab));
+					// note: dont `break` here, we need to add listeners to new tabs
+				}
+
+				// Handle removed [role=tab]
+				if (careAboutRemovals) {
+					for (const node of mutation.removedNodes) {
+						if (node.nodeType !== 1) continue;
+
+						if (node.matches(that.tabSelector)) node.removeTabListeners(node);
+						node.querySelectorAll(that.tabSelector).forEach(tab => that.removeTabListeners(tab));
+						// note: dont `break` here, we need to add listeners to new tabs
+						careAboutRemovalsNext = true;
+					}
+				}
+
+
+				// Handle added [role=tablist] or [role=tabpanel]
+				if (!shouldReindex) {
+					for (const node of mutation.addedNodes) {
+						if (
+							node.matches(      that.tablistSelector) ||
+							node.querySelector(that.tablistSelector) ||
+
+
+							node.matches(      that.panelSelector) ||
+							node.querySelector(that.panelSelector) ||
+						false) {
+							shouldReindex = true;
+							break;
+						}
+					}
+				}
+
+				// Handle removed [role=tablist] or [role=tabpanel]
+				if (!shouldReindex && careAboutRemovals) {
+					for (const node of mutation.removedNodes) {
+						if (
+							node.matches(      that.tablistSelector) ||
+							node.querySelector(that.tablistSelector) ||
+
+							node.matches(      that.panelSelector) ||
+							node.querySelector(that.panelSelector) ||
+						false) {
+							shouldReindex = true;
+							break;
+						}
+					}
+				}
+			}
+
+			if (shouldReindex) {
+				that.reindex();
+			}
+		});
+
+		this.observer.observe(this.element, { childList: true, subtree: true });
+	}
+
+
+	// NOTE:!!! never used, we currently are checking only the elements inside, not the entire DOM
+	deconstruct() {
+		this.observer.disconnect();
+		this.tabs.forEach(tab => this.constructor.removeTabListeners(tab, this));
+	}
+
+
+	reindex() {
+		this.tablist = this.element.querySelector(this.tablistSelector);
+		if (!this.tablist) {
+			// we are probably too early
+			this.tabs = [];
+			this.tabToIndex = new Map();
+		} else {
+			this.tabs = Array.from(this.tablist.querySelectorAll(this.tabSelector));
+			this.tabToIndex = new Map(this.tabs.map((tab, index) => [tab, index]));
+		}
+		this.panels = Array.from(this.element.querySelectorAll(this.panelSelector));
+	}
+
+
+
+	getTabs() {
+		return this.element.querySelectorAll(this.tabSelector);
+	}
+
+	getPanels() {
+		return this.element.querySelectorAll(this.panelSelector);
+	}
+
+
+	/**
+	* @param {HTMLElement} el
+	* @param {string} atrName
+	* @param {boolean} defaultValue
+	* @returns {boolean|undefined}
+	*/
+	static handleAtr(el, atrName, defaultValue) {
+		const value = el.getAttribute(atrName);
+		return (
+			value === 'true' ? true :
+			value === 'false' ? false :
+			value === '' ? true : // defined attribute but empty value -> true
+			defaultValue // without such a attribute -> defaultValue
+		);
+	}
+
+	/**
+	* @returns {boolean} - True if the tabs should wrap, false otherwise.
+	*/
+	getWrap() {
+		return TabbedComponent.handleAtr(this.tablist, 'data-wrap', false);
+	}
+
+
+	/**
+	* getOrientation
+	* note: if no explicit orientation, works both ways horizontal and vertical
+	* @returns {'horizontal'|'vertical'|string|undefined}
+	*/
+	getOrientation() {
+		return this.tablist.getAttribute('aria-orientation');
+	}
+
+	/**
+	* @returns {boolean} - True if the tabs should wrap, false otherwise.
+	*/
+	getIsRequiredKey() {
+		return true; // disabled feature
+		// return TabbedComponent.handleAtr(this.tablist, 'data-js-required', false);
+	}
+
+
+
+	/**
+	* @typedef {function(TabbedComponent, HTMLElement, KeyboardEvent): boolean} KeyHandleFunction
+	* @returns {boolean} - `true` if the handle function handled the event
+	* - `false` - we could not handle = we do not want to prevent default
+	* - `true` - we handled = we want to prevent default
+	* - `undefined` - no feedback from handle, assume everything is fine
+	*/
+
+
+	// on clicking left/up goes back index, on right/down goes forward index
+	// on keydown space/enter switch in tab
+	// on Home/End btn go to the first/last tab
+	static keys = new Map([
+		['Home',       (that, tab) => { that.switchOrFocusTabByIndex(-Infinity, {focusPanel: true}); }],
+		['End',        (that, tab) => { that.switchOrFocusTabByIndex( Infinity, {focusPanel: true}); }],
+
+		// note: on non required tabs, if tab not selected, do not move focus (no need for focusPanel:true, the user is belived to have already selected the tab)
+		['Enter',      (that, tab) => { that.handleKeyToSelectOrFocusOrDeselectTab(tab, event); }],
+		[' ',          (that, tab) => { if (that.options.keys.typingJump && that._typingBuffer && 0 < that._typingBuffer.length) return false; that.handleKeyToSelectOrFocusOrDeselectTab(tab, event); }],
+
+		// VIM-like navigation
+		['^',          (that, tab) => { if (that.options.keys.vimMotionEnabled !== true) return false; that.switchOrFocusTabByIndex(-Infinity, {focusPanel: true}); }],
+		['0',          (that, tab) => { if (that.options.keys.vimMotionEnabled !== true) return false; that.switchOrFocusTabByIndex(-Infinity, {focusPanel: true}); }],
+		['$',          (that, tab) => { if (that.options.keys.vimMotionEnabled !== true) return false; that.switchOrFocusTabByIndex( Infinity, {focusPanel: true}); }],
+
+		['Escape',     (that, tab) => { if (that.options.keys.typingJump && that._typingBuffer  && !that.getIsRequiredKey()) return true; }], /* custom */
+	]);
+
+	static keysHorizontal = new Map([
+		['ArrowLeft',  (that, tab) => { that.switchOrFocusTabDirection(tab, -1, {focusPanel: true}); }],
+		['ArrowRight', (that, tab) => { that.switchOrFocusTabDirection(tab,  1, {focusPanel: true}); }],
+
+		// VIM-like navigation
+		['h',          (that, tab) => { if (that.options.keys.vimMotionEnabled !== true) return false; that.switchOrFocusTabDirection(tab, -1, {focusPanel: true}); }],
+		['l',          (that, tab) => { if (that.options.keys.vimMotionEnabled !== true) return false; that.switchOrFocusTabDirection(tab,  1, {focusPanel: true}); }],
+	]);
+
+	static keysVertical = new Map([
+		['ArrowUp',    (that, tab) => { that.switchOrFocusTabDirection(tab, -1, {focusPanel: true}); }],
+		['ArrowDown',  (that, tab) => { that.switchOrFocusTabDirection(tab,  1, {focusPanel: true}); }],
+
+		// VIM-like navigation
+		['k',          (that, tab) => { if (that.options.keys.vimMotionEnabled !== true) return false; that.switchOrFocusTabDirection(tab, -1, {focusPanel: true}); }],
+		['j',          (that, tab) => { if (that.options.keys.vimMotionEnabled !== true) return false; that.switchOrFocusTabDirection(tab,  1, {focusPanel: true}); }],
+	]);
+
+	static keyNonRequired = new Map([
+		//['Delete',     (that, tab) => { that.deselectPanelsOnly(); that.deselectTabOnly(tab, { keepTabindex: true }); }],
+		['Delete',     (that, tab) => { if (that.options.keys.typingJump && that._typingBuffer) return true; that.handleDeactivateTab(tab, 'key'); }],
+		['Backspace',  (that, tab) => { if (that.options.keys.typingJump && that._typingBuffer) return true; that.handleDeactivateTab(tab, 'key'); }], /* custom */
+		['Escape',     (that, tab) => { if (that.options.keys.typingJump && that._typingBuffer) return true; that.handleDeactivateTab(tab, 'key'); }], /* custom */
+	]);
+
+	/**
+	* Resets the jump and typing buffers.
+	* @returns {void}
+	*/
+	resetBuffers() {
+		this._digitBuffer = '';
+		this._typingBuffer = '';
+		console.debug('resetBuffers: ', this._digitBuffer, this._typingBuffer);
+	}
+
+	static keyDefaultHandle = (that, tab, event) => {
+		const anySpecialKey = event.key.length !== 1;
+		if (anySpecialKey) return false;
+		const anySpecialModifyer = event.ctrlKey || event.metaKey || event.altKey;
+		const anyModifier = anySpecialModifyer || event.shiftKey;
+		if (anySpecialModifyer) return false;
+
+
+		let defaultPrevented = false;
+
+
+
+		let numForDigitJump; // needed for letter jump check. note: typing jump is forbidden if digit jump is enabled and matches
+		if (that.options.keys.singleDigitJump || that.options.keys.digitJump) {
+			let num = Number(event.key);
+			if (Number.isInteger(num) && event.key.trim() !== '') {
+				numForDigitJump = num;
+			}
+		}
+
+
+		// letter jump:
+		// example: if there is tab named "hello world", pressing "hell" will jump to the tab
+		// if (!anySpecialModifyer)
+		letterJump:
+		if ((that.options.keys.singleLetterJump || that.options.keys.typingJump) && event.key.length === 1 && /\w|[+'" =/\\-]/.test(event.key)) {
+			const searchLetter = event.key;
+			const searchLetterLower = event.key.toLowerCase();
+			let searchBuff;
+			let searchBuffLower;
+			if (that.options.keys.typingJump) {
+				clearTimeout(that._typingBufferTimeout);
+				searchBuff = (that._typingBuffer || '') + searchLetter;
+				that._typingBuffer = searchBuff;
+				searchBuffLower = searchBuff.toLowerCase();
+				console.debug('typing buffer:', that._typingBuffer);
+
+				that._typingBufferTimeout = setTimeout(() => {
+					console.debug('clearing buffer', that._typingBuffer);
+					that._typingBuffer = '';
+				}, 1.5e3);
+			}
+
+
+			let targetTab;
+
+			if (searchBuff.length === 1) {
+				let exactMatch;
+				let match;
+
+				// note: only jumpkeys is enabled if there is numForDigitJump
+				tabSearch: for (let tab of that.tabs) {
+					for (let el of tab.querySelectorAll('[data-tabs-jump-key]')) {
+						if (el.textContent === searchLetter) {
+							exactMatch = tab;
+							break tabSearch;
+						}
+
+						if (!match && el.textContent.toLowerCase() === searchLetterLower) {
+							match = tab;
+						}
+					}
+				}
+
+				targetTab = exactMatch || match;
+			}
+
+			if (numForDigitJump == null)
+			if (!targetTab && that.options.keys.typingJump) {
+				let exactMatch;
+				let exactMatchLower;
+				let matchStart;
+				let matchStartLower;
+				tabSearch: for (let tab of that.tabs) {
+					// for typing jump, match start of extracted string or exact match
+					const str = tab.textContent;
+					// dont: remove the buffer when found exact match, reason: when keep typing somethnig will imideatly move to it
+
+					if (str === searchBuff) {
+						exactMatch = tab;
+						break tabSearch;
+					}
+
+					const strLower = str.toLowerCase();
+
+					if (!exactMatchLower && strLower === searchBuffLower) {
+						exactMatchLower = tab;
+					}
+
+					if (!matchStart && str.startsWith(searchBuff)) {
+						matchStart = tab;
+					}
+
+					if (!matchStartLower && strLower.startsWith(searchBuffLower)) {
+						matchStartLower = tab;
+					}
+				}
+
+				targetTab = exactMatch || exactMatchLower || matchStart || matchStartLower;
+			}
+
+
+			// rojected/dont: use fuzzy search, user wont know why tabs are selected, no visual feedback
+
+
+
+
+
+			if (!targetTab) {
+				// if typing jump is enabled and no match, we still consumed the keystroke
+				// don't prevent default unless it perfectly matching something, but keeping it true helps prevent native browser jumping clashing
+				// return true could be debated, but consistent with digit jump
+				defaultPrevented = true; break letterJump;
+			}
+
+
+			that.switchTab(targetTab, {focusPanel: true});
+			return true;
+		} // end label letterJump
+
+
+		digitJump:
+		// example: if there are 12 tabs, pressing 1 then 2 will jump to the 12th tab
+		// if (!anySpecialModifyer)
+		if (numForDigitJump) {
+			let num = numForDigitJump;
+			if (that.options.keys.digitJump && 10 <= that.tabs.length) {
+				clearTimeout(that._digitBufferTimeout);
+				that._digitBuffer = (that._digitBuffer || '') + event.key;
+				num = Number(that._digitBuffer);
+
+				that._digitBufferTimeout = setTimeout(() => {
+					that._digitBuffer = '';
+				}, 1.5e3);
+			}
+
+			// note: 0 is not part of jump keys
+			if (0 < num && !( num <= that.tabs.length || that.options.keys.digitJumpMagnet )) {
+				defaultPrevented = true; break digitJump;
+				// we could not execute the handle,
+				// but the handle logic is correct,
+				// so we DO want to prevent default
+			}
+
+			that.switchOrFocusTabByIndex(num - 1, {focusPanel: true});
+			return true;
+		} // end label digitJump
+
+		// when we could not find suitable handler return flase
+		return defaultPrevented;
+	};
+
+	// consider: adding event listener such as Ctrl+Tab, Alt+1 to switch in tab's pannels
+
+	symbolListening = Symbol('initialized addTabListener flag');
+
+	/**
+	* Adds listeners 'click' and 'keydown' (arrow keys, etc) to the tab element.
+	* @param {HTMLElement} tab - The tab to add listeners to.
+	*/
+	addTabListeners(tab) {
+		if (tab[this.symbolListening]) {
+			console.debug(new ErrorExtended('atepmted to .addTabListeners() that already has listeners', {tab, this: this}));
+			return false;
+		}
+
+		const that = this;
+
+		let listenClick;
+		tab.addEventListener('click', listenClick= function(event) {
+			let tab = this;
+			that.handleMouseToSelectOrFocusOrDeselectTab(tab, event);
+
+			that.resetBuffers();
+			event.preventDefault();
+			// todo: more reasearch if we should call .stopPropagation() or .stopImmediatePropagation() here
+		});
+
+		let listenKeydown;
+		tab.addEventListener('keydown', listenKeydown= function(event) {
+			let tab = this;
+
+
+			/** @type KeyHandleFunction */
+			let handle;
+
+			gettingHandle: {
+				handle = TabbedComponent.keys.get(event.key);
+				if (handle && handle(that, tab, event) !== false) {break gettingHandle;}
+
+				const orientation = that.getOrientation();
+				// note: if no explicit orientation, works both ways horizontal and vertical
+				if (orientation === 'horizontal' || !orientation) {
+					handle = TabbedComponent.keysHorizontal.get(event.key);
+					if (handle && handle(that, tab, event) !== false) {break gettingHandle;}
+				}
+				if (orientation === 'vertical' || !orientation) {
+					handle = TabbedComponent.keysVertical.get(event.key);
+					if (handle && handle(that, tab, event) !== false) {break gettingHandle;}
+				}
+
+				// const isRequired = that.getIsRequiredKey();
+				// if (!isRequired) {
+				// 	handle = TabbedComponent.keyNonRequired.get(event.key);
+				// 	if (handle && handle(that, tab, event) !== false) {break gettingHandle;}
+				// }
+
+				handle = TabbedComponent.keyDefaultHandle;
+				if (handle && handle(that, tab, event) !== false) {break gettingHandle;}
+
+				return;
+			}
+
+			if (handle !== TabbedComponent.keyDefaultHandle) that.resetBuffers();
+			event.preventDefault();
+			// todo: more reasearch if we should call .stopPropagation() or .stopImmediatePropagation() here
+		});
+
+		tab[this.symbolListening] = {click: listenClick, keydown: listenKeydown};
+
+		return true;
+	}
+
+	/**
+	* Removes listeners from the tab element.
+	* @param {HTMLElement} tab - The tab to remove listeners from.
+	* @returns {boolean} - True if the listeners were removed, false otherwise.
+	*/
+	removeTabListeners(tab) {
+		if (!tab[this.symbolListening]) {
+			console.debug(new ErrorExtended('atepmted to .removeTabListeners() that does not have set listeners', {tab, this: this}));
+			return false;
+		}
+
+		const {click, keydown} = tab[this.symbolListening];
+		tab.removeEventListener('click', click);
+		tab.removeEventListener('keydown', keydown);
+
+		delete tab[this.symbolListening];
+
+		return true;
+	}
+
+	/**
+	* Deselects a single tab.
+	* @param {HTMLElement} tab - The tab to deselect.
+	* @param {object} [options]
+	* @param {boolean} [options.keepTabindex=false] - Whether to keep the tabindex attribute (used for deselect [role=tab] by `key event` when not required)
+	* @returns {void}
+	*/
+	deselectTabOnly(tab, options = { keepTabindex: false }) {
+		tab.classList.remove('rankings__tab--active');
+		tab.setAttribute('aria-selected', 'false');
+		if (!options.keepTabindex) tab.setAttribute('tabindex', '-1');
+	}
+
+	/**
+	* Deselects all tabs.
+	* @returns {void}
+	*/
+	deselectTabsOnly() {
+		this.tabs.forEach(tab => {
+			this.deselectTabOnly(tab);
+		});
+	}
+
+	/**
+		* Deselects all panels.
+		* @returns {void}
+		*/
+	deselectPanelsOnly() {
+		this.panels.forEach(panel => {
+			panel.setAttribute('hidden', '');
+			panel.setAttribute('tabindex', '-1'); // Add tabindex for programmatic focus
+		});
+	}
+
+	/**
+	* Deselects all tabs and panels.
+	* @returns {void}
+	*/
+	deselectTabs() {
+		this.deselectTabsOnly();
+		this.deselectPanelsOnly();
+	}
+
+	/**
+	* Switches to the tab in the specified direction.
+	* @param {HTMLElement|number} tab - The tab to switch to or its index.
+	* @param {number} direction - The direction to switch to. -1 = left, 1 = right
+	* @param {TabSwitchOptions} [switchOptions] - The options to pass to the switchTab method.
+	*/
+	switchOrFocusTabDirection(tab, direction, options) {
+		if (!Number.isInteger(direction)) throw 4; // usage error
+
+		if (direction === 0) throw 2; //outdated one // return this.switchTab(tab, options); // good easyest one
+
+		//if (direction !== 1 && direction !== -1) console.debug('note: not expected direction', {context: {tab, direction}});
+
+		/** @type {number} */
+		let index;
+		if (tab instanceof HTMLElement) index = this.tabToIndex.get(tab);
+		else if (Number.isInteger(tab)) index = tab;
+		else throw 4; // bad argument tab
+
+		let targetIndex = index + direction;
+
+		return this.switchOrFocusTabByIndex(targetIndex, options);
+	}
+
+
+
+	/**
+	* Switches to the tab by index.
+	* @param {number} index - The index of the tab to switch to. -Infinity|0 = first tab, Infinity = last tab
+	* @param {TabSwitchOptions} [switchOptions] - The options to pass to the switchTab method.
+	*/
+	switchOrFocusTabByIndex(index, options) {
+		if (index === Infinity) {
+			return this.switchOrFocusTab(this.tabs[this.tabs.length - 1], options);
+		}
+		if (index === -Infinity || index === 0) {
+			return this.switchOrFocusTab(this.tabs[0], options);
+		}
+
+		let wrap;
+		wrap = this.getWrap();
+		let targetIndex;
+		if (wrap) {
+			targetIndex = (index + this.tabs.length) % this.tabs.length;
+		} else {
+			targetIndex = Math.max(0, Math.min(index, this.tabs.length - 1));
+		}
+
+		return this.switchTab(this.tabs[targetIndex], options);
+	}
+
+
+	switchOrFocusTab(...args) {
+		return this.focusMode ? this.selectTab(...args) : this.switchTab(...args);
+	}
+
+	/**
+	* focus the tab without selecting to it
+	* @param {HTMLElement} targetTab - The tab to select.
+	* @param {TabSelectOptions} [selectOptions] - The options to pass to the selectTab method.
+	* @returns {void}
+	*/
+	focusTab(targetTab, options) {
+		this.tabs.forEach(tab => {
+			if (tab === targetTab) {
+				tab.setAttribute('tabindex', '0');
+			} else {
+				tab.setAttribute('tabindex', '-1');
+			}
+		});
+
+		targetTab.focus();
+	}
+
+	/**
+	* Switches to the tab by index.
+	* @param {HTMLElement} targetTab - The tab to switch to.
+	* @param {TabSwitchOptions} [switchOptions] - The options to pass to the switchTab method.
+	* @returns {void}
+	*/
+	switchTab(targetTab, {focusPanel = false, focusTab = false} = {}) {
+		const targetPanel = document.getElementById(targetTab.getAttribute('aria-controls'));
+
+		this.deselectTabs();
+		targetTab.setAttribute('aria-selected', 'true');
+		targetTab.setAttribute('tabindex', '0');
+		targetPanel.removeAttribute('hidden');
+
+		this.createAndDispatchChangeEvent(targetTab);
+
+
+		if (focusPanel) targetTab.focus();
+		if (focusTab) targetPanel.focus();
+
+		// return {
+		//   targetTab,
+		//   targetPanel,
+		// };
+	}
+
+
+
+
+
+	handleKeyToSelectOrFocusOrDeselectTab(tab, triggerEvent, options = {}) {
+		return this.handleSelectOrFocusOrDeselectTab(tab, {trigger: 'key', triggerEvent}, options);
+	}
+
+	handleMouseToSelectOrFocusOrDeselectTab(tab, triggerEvent, options = {}) {
+		return this.handleSelectOrFocusOrDeselectTab(tab, {trigger: 'mouse', triggerEvent}, options);
+	}
+
+
+
+	/**
+	* handle re clicking tab, most useful for deselecting tab
+	* @param {HTMLElement} tab - The tab to click.
+	* @param {Event} triggerEvent
+	* @param {'key'|'mouse'} trigger
+	* @param {TabSwitchOptions} [options] - The options to pass to the switchTab method.
+	* @returns {void|false} - false when cannot deactivate current tab due to .getIsRequiredKey()
+	*/
+	handleSelectOrFocusOrDeselectTab(tab, {trigger, triggerEvent}, options = {}) {
+		if (trigger === 'mouse' && tab.getAttribute('aria-selected') === 'true') {
+			return this.handleDeactivateTab(tab);
+		}
+
+
+		if (!('focusTab' in options)) {
+			options.focusTab =
+				trigger === 'mouse' ? false :
+				trigger === 'key' ? true :
+				null
+			;
+		}
+
+		if (triggerEvent.ctrlKey) {
+			this.focusTab(tab, options);
+		} else {
+			this.switchTab(tab, options);
+		}
+	}
+
+	/**
+	* handle re clicking tab, most useful for deselecting tab
+	* @param {HTMLElement} tab - The tab to click.
+	* @returns {void|false} - false when cannot deactivate current tab due to .getIsRequiredKey()
+	*/
+	handleDeactivateTab(tab) {
+		if (this.getIsRequiredKey()) return false;
+
+		this.deactivateTab(tab);
+		this.focusMode = true;
+	}
+
+	/**
+	* handle re clicking tab, most useful for deselecting tab
+	* @param {HTMLElement} tab - The tab to click.
+	* @returns {void}
+	*/
+	deactivateTab(tab) {
+		this.deselectPanelsOnly();
+		this.deselectTabOnly(tab, { keepTabindex: true });
+	}
+
+
+
+
+	/**
+	* Creates and dispatches a change event.
+	* @param {HTMLElement} target - The target element to dispatch the event to.
+	* @param {Object} customEventOptions - The options to pass to the event.
+	* @returns {void} - change event could not be prevented
+	*/
+	createAndDispatchChangeEvent(target, customEventOptions) {
+		this.createAndDispatchEvent('change', target, customEventOptions, { value: true, active: true });
+	}
+
+	/**
+	* Dispatches an event.
+	* recommended: call `change` event only on activating tab similar to how native `change` event works on `input[type=radio]`
+	* @param {string} eventName - The name of the event to dispatch.
+	* @param {HTMLElement} target - The target of the event.
+	* @param {Object} customEventOptions - The options to pass to CustomEvent 2nd argument `options`.
+	* @param {Object} eventProperties - Properties to pass set on the event.
+	* @param {boolean} eventProperties.value - `true` if tab is going to be active
+	* @returns {boolean|undefined} - `false` if the event should be prevented
+	*/
+	createAndDispatchEvent(eventName, target, customEventOptions, eventProperties = {}) {
+		eventProperties.that = this;
+		let createdEvent = new TabbedComponent.CustomEvent(eventName, target, customEventOptions, eventProperties);
+		return this.dispatchEvent(createdEvent);
+	}
+
+
+	/**
+	* Dispatches an event.
+	* @param {string} eventName - The name of the event to dispatch.
+	* @param {HTMLElement} target - The target of the event.
+	* @param {Object} customEventOptions - The options to pass to CustomEvent 2nd argument `options`.
+	* @param {Object} eventProperties - Properties to pass set on the event.
+	* @param {boolean} eventProperties.value - `true` if tab is going to be active
+	* @returns {CustomEvent}
+	*/
+	static CustomEvent = class extends CustomEvent {
+		constructor(eventName, target, customEventOptions, eventProperties = {}) {
+			super(eventName, customEventOptions);
+
+
+			Object.defineProperty(this, 'target', {
+				value: target,
+				configurable: false,
+				enumerable: true
+			});
+
+			if (Object.hasOwn(eventProperties, 'value')) this.value = eventProperties.value;
+		}
+
+		preventDefault() {
+			if (this.type === 'change') console.debug(new ErrorExtended('called .preventDefault on `change` event (it wont have effect)', {this: this}));
+			return this.super.preventDefault();
+		}
+	}
+
+
+	/**
+	* Dispatches an event.
+	* recommended: call `change` event only on activating tab similar to how native `change` event works on `input[type=radio]`
+	* @param {CustomEvent} event - The event to dispatch.
+	* @returns {boolean|undefined} - `false` if the event should be prevented
+	*/
+	dispatchEvent(event) {
+
+		if (event.type === 'change') {
+			let returnedValue = this.options.callbacks.onChange.call(this, event);
+			if (returnedValue === false) event.preventDefault();
+			if (event.defaultPrevented) return false;
+		}
+		// else if ()
+
+		event.target.dispatchEvent(event);
+
+		if (event.defaultPrevented) return false;
+	}
+
+}
+
+
+// consider: multiselect with: ctrl + click , ctrl + arrows to move focus but not active, ctrl+space to set active but not deselect all,
+// consider: in multiselect config if one key press (space||enter) should deselect all
+
+// consider: `options.keys.singleDigitJumpBuffer` to buffer the keys for about 1.5s to jump to numbered tabs
+// consider: using keypressing to jump to that tab name ! (this will be epic).
+//   but conflicts with vim motion, constructor should have detection of that case and throw err
+//   when no jumpBuffer -- will underile one key specifyed by attribute
+//   note: if the key is not in the string, should append `(KEY)` example: `tab for undo (Z)`
+
+// consider: buffer letters to preffer exact match of string (just handle Shift, and fallback to both lowercase)
+
+
+// BUGS AND CONSIDERATIONS:
+// to test: unselect/focus mode is verry buggy!
+// unshure escape behaviour when clearing buffer / unfocusing / deselecting
+// keyboard handling is not well done in weirdly separated keys `keys` `keysHorizontal` `keysVertical` `keyNonRequired`
+//
+
+/* extra BUGS AND CONSIDERATIONS:
+>// NOTE:!!! {deconstruct() is} never used, we currently are checking only the elements inside, not the entire DOM
+>// todo: more reasearch if we should call .stopPropagation() or .stopImmediatePropagation() here{ (in click and keydown listeners)}
+>// consider: adding event listener such as Ctrl+Tab, Alt+1 to switch in tab's pannels
+*/
+
+const rankings = document.querySelector('x-tabs.rankings');
+const tabbedComponent = new TabbedComponent(
+	rankings,
+	'[role="tablist"].rankings__tablist',
+	'x-tab[role="tab"].rankings__tab',
+	'x-panel[role="tabpanel"].rankings__panel',
+	{
+		keys: {
+			//vimMotionEnabled: true,
+			singleDigitJump: true,
+			// digitJump: true,
+			digitJumpMagnet: true,
+			singleLetterJump: true,
+
+			typingJump: true,
+
+
+			// todo: activeFollowsFocus: true,
+		},
+
+		callbacks: {
+			onChange: function(event) {
+				let el = event.target;
+				el.classList.toggle('rankings__tab--active', el.getAttribute('aria-selected'));
+			},
+		},
+	}
+);
+
+
+
+/*
+next prompt:
+to fix: activeFollowsFocus
+
+
+with minimal changes could you fix
+this.option.activeFollowsFocus.
+
+
+related to `this.focusMode`.
+
+note that behaviour of this.focusMode is variable that leads to same behavior in practice (works the same when true, is controlled by different cause).
+but is only active when all tabs are deselected in non required tabslist.
+directly said: this.focusMode is true only when deselected tabs,
+and when user selects tab, then `this.a` value from
+
+
+*/
+
+
+
+</script>
